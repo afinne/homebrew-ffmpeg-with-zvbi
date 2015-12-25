@@ -75,6 +75,7 @@ class Ffmpeg < Formula
   depends_on "zeromq" => :optional
   depends_on "libbs2b" => :optional
   depends_on "dcadec" => :optional
+  depends_on 'zvbi' => :optional
 
   def install
     args = ["--prefix=#{prefix}",
@@ -124,6 +125,7 @@ class Ffmpeg < Formula
     args << "--enable-libbs2b" if build.with? "libbs2b"
     args << "--enable-libdcadec" if build.with? "dcadec"
     args << "--disable-indev=qtkit" if build.without? "qtkit"
+    args << "--enable-libzvbi" if build.with? 'zvbi'
 
     if build.with? "openjpeg"
       args << "--enable-libopenjpeg"
