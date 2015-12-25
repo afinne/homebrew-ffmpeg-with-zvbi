@@ -38,6 +38,18 @@ Error while opening encoder for output stream #0:2 - maybe incorrect parameters 
 
 ```
 
+After:
+```bash
+...
+Stream mapping:
+  Stream #0:0 -> #0:0 (mpeg2video (native) -> h264 (libx264))
+  Stream #0:1 -> #0:1 (copy)
+  Stream #0:2 -> #0:2 (dvb_teletext (libzvbi_teletextdec) -> subrip (srt))
+Press [q] to stop, [?] for help
+frame= 1224 fps= 51 q=0.0 size=  108829kB time=00:00:49.68 bitrate=17945.4kbits/s 
+#Winning!
+```
+
 Probably won't be updated as I'm only borrowing a Mac, but the patch isn't that difficult.
 
 Full credit to the original authors.
