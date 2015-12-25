@@ -1,0 +1,31 @@
+From 029637f0def5e56ab5be70bf1e326253f542d34e Mon Sep 17 00:00:00 2001
+From: Simon Middleton <simon@theultraworld.org>
+Date: Fri, 31 Jan 2014 16:58:45 +0000
+Subject: [PATCH] ffmpeg: add support for zvbi library
+
+Add support to the ffmpeg build for the optional zvbi library (allows
+ffmpeg to understand DVB subtitles).
+---
+ Library/Formula/ffmpeg.rb | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Library/Formula/ffmpeg.rb b/Library/Formula/ffmpeg.rb
+index a5c1bce..ab492eb 100644
+--- a/Library/Formula/ffmpeg.rb
++++ b/Library/Formula/ffmpeg.rb
+@@ -50,6 +50,7 @@ class Ffmpeg < Formula
+   depends_on 'libcaca' => :optional
+   depends_on 'libbluray' => :optional
+   depends_on 'libquvi' => :optional
++  depends_on 'zvbi' => :optional
+ 
+   def install
+     args = ["--prefix=#{prefix}",
+@@ -88,6 +89,7 @@ def install
+     args << "--enable-frei0r" if build.with? 'frei0r'
+     args << "--enable-libcaca" if build.with? 'libcaca'
+     args << "--enable-libquvi" if build.with? 'libquvi'
++    args << "--enable-libzvbi" if build.with? 'zvbi'
+ 
+     if build.with? 'openjpeg'
+       args << '--enable-libopenjpeg'

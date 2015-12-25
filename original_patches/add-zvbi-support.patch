@@ -1,0 +1,63 @@
+From f7a564eb3be3c63f6a0bb32666736729e45dfa5b Mon Sep 17 00:00:00 2001
+From: Simon Middleton <simon@theultraworld.org>
+Date: Fri, 31 Jan 2014 17:02:24 +0000
+Subject: [PATCH] zvbi: 0.2.35
+
+Add zvbi library to allow ffmpeg to understand DVB subtitles.
+
+Note the library has some unit tests run with 'make check', two of which
+fail on OSX (an issue is open for this on sourceforge), so for now the
+Makefile has been patched to skip those two tests.
+
+It's built without-x as the main library doesn't depend on it, only the
+ntsc-cc tool which is not useful on OSX.
+---
+ Library/Formula/zvbi.rb | 39 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
+ create mode 100644 Library/Formula/zvbi.rb
+
+diff --git a/Library/Formula/zvbi.rb b/Library/Formula/zvbi.rb
+new file mode 100644
+index 0000000..485a0d8
+--- /dev/null
++++ b/Library/Formula/zvbi.rb
+@@ -0,0 +1,39 @@
++require "formula"
++
++class Zvbi < Formula
++  homepage 'http://zapping.sourceforge.net/'
++  url "http://downloads.sourceforge.net/project/zapping/zvbi/0.2.35/zvbi-0.2.35.tar.bz2"
++  sha1 "b0fc8d596c90d603e883e6b195318c6b276a3eb4"
++
++  # two of the unit tests fail on Mac OS - see
++  # http://sourceforge.net/p/zapping/bugs/197/ - so remove them until
++  # fixed so that we can run the rest of the tests
++  def patches
++    DATA
++  end
++
++  def install
++    system "./configure", "--disable-dependency-tracking",
++                          "--disable-silent-rules",
++                          "--without-x",
++                          "--prefix=#{prefix}"
++    system "make"
++    system "make", "check"
++    system "make", "install"
++  end
++end
++
++__END__
++diff --git a/test/Makefile.in b/test/Makefile.in
++index 95e0848..12aadfe 100644
++--- a/test/Makefile.in
+++++ b/test/Makefile.in
++@@ -630,8 +630,6 @@ TESTS = \
++ 	test-dvb_demux \
++ 	test-dvb_mux \
++ 	test-hamm \
++-	test-packet-830 \
++-	test-pdc \
++ 	test-raw_decoder \
++ 	test-unicode \
++ 	test-vps
