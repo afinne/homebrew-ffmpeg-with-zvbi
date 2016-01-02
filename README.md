@@ -12,7 +12,7 @@ remote: Total 7 (delta 1), reused 7 (delta 1), pack-reused 0
 Unpacking objects: 100% (7/7), done.
 Checking connectivity... done.
 Tapped 2 formulae (32 files, 136K)
-~ voltagex$ brew install voltagex/ffmpeg-with-zvbi/ffmpeg --with-faac --with-zvbi
+~ voltagex$ brew install voltagex/ffmpeg-with-zvbi/ffmpeg --with-fdk-aac --with-zvbi --with-ffplay
 ```
 
 This enables proper dvb teletext (subtitles) support.
